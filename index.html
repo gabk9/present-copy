@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensagem especial</title>
+
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        body{
+            margin:0;
+            background-image: url(fundo.jpg);
+        }
+
+        .topo{
+            text-align: center;
+        }
+          
+        .linha-coracao{
+            border: none;
+            height: 1px;
+            background: #ffb6c1;
+            position: relative;
+            margin: 50px 0;
+        }
+
+        .linha-coracao::after{
+            content: "❤️";
+            position: absolute;
+            left: 50%;
+            top: -14px;
+            transform: translateX(-50%);
+            background: #ffffff;
+            padding: 0 10px;
+        }
+
+        .linha {
+            border: none;
+            height: 2px;
+            background-color: #ff6b81;
+            margin: 30px 0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        /* Cartão branco */
+        .card {
+            background: #fff8ed;
+            max-width: 800px;
+            width: 100%;
+            padding: 40px;
+            border-radius: 6px;
+        }
+
+        /* Título */
+        .card h1 {
+            text-align: center;
+            margin-top: 0;
+        }
+
+        /* Linha adaptada ao layout */
+        .linha-coracao {
+            border: none;
+            height: 1px;
+            background: #f2a6b3;
+            position: relative;
+            margin: 30px 0;
+        }
+
+        .linha-coracao::after {
+            content: "❤️";
+            position: absolute;
+            left: 50%;
+            top: -14px;
+            transform: translateX(-50%);
+            background: #fff7ec; /* mesma cor do card */
+            padding: 0 10px;
+        }
+
+        /* Texto */
+        .card p {
+            line-height: 1.7;
+            text-align: justify;
+            font-size: 16px;
+        }
+
+        .coracao {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 50px auto;
+        }
+
+        .love {
+            position: absolute;
+            color: #ff7aa2;
+            font-size: 14px;
+            font-family: Arial, sans-serif;
+            white-space: nowrap;
+        animation: pulsar 2s infinite ease-in-out;
+        }
+
+        @keyframes pulsar {    
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+        }
+
+        .coluna-50{
+            float:left;
+            width:50%;
+            padding:15px;
+        }
+
+        .presentes {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .presente {
+            text-align: center;
+            opacity: 0.4;
+            pointer-events: none;
+            transition: 0.3s;
+        }
+
+        .presente img {
+            width: 120px;
+        }
+
+        .presente.liberado {
+            opacity: 1;
+            pointer-events: auto;
+            cursor: pointer;
+        }
+
+        .presente.liberado:hover {
+            transform: scale(1.05);
+        }
+
+        .botao{
+            background:#ffb6c1;
+            text-decoration: none;
+            padding: 5px;
+            border: 2px solid;
+            border-color: #f2a6b3;
+            border-radius: 14px;
+            color:#5f0b0b;
+        }
+
+        .botao:hover {
+            background:#ffc8d1;
+            color:#881a1a;
+            border-color: #ffb6c1;
+        }
+
+        .gifs{
+            display:flex;
+            gap:10px;
+            align-items:center;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="container">
+        <div class="card">
+            <titulo class="topo">
+                <h1>FELIZ 9 MESES JUNTOS!!!</h1>
+            </titulo>
+
+            <div class="linha-coracao">
+                <hr class="linha">
+            </div>
+
+            <texto class="texto">
+                <p>Feliz 9 meses de namoro Ana Rita, uma data muito especial para nós, para o nosso relacionamento. Obrigado por aparecer na minha vida, obrigado por me amar desde pequeno por quem eu sou, você me faz feliz todos os dias, eu acordo e me pergunto como você está, eu penso em você o dia todo, morro de saudades porque nao consigo ver voce toda hora e crio muitos cenários na minha cabeça kk. Enfim, você mudou minha vida pra melhor e eu quero passar o resto dela ao seu lado, quero buscar a santidade junto com você, que esses 9 meses se tornem anos e para sempre, a aproveitando que eu estou aprendendo programação, eu fiz um site e algumas coisas para comemorar essa data especial, e mais outras kkk. Eu te amo Ana Rita S2 </p>
+            </texto>
+
+
+            <!--background-color:#f2a6b3;-->
+            <img class="imagem" src="ana-e-eu.jpeg" width="100%">
+
+            <div class="linha-coracao">
+                <hr class="linha">
+            </div>
+            <br>
+
+            <p class="contador"><b>Estamos juntos há exatamente (eu acho pelo menos kk):</b>
+            <br><br><span id="tempo"></span>
+            </p>
+            
+            <script>
+            // Data de início do namoro
+            // ATENÇÃO: mês começa em 0 (0 = janeiro)
+            const inicio = new Date(2025, 4, 22, 20, 30); 
+            // 22/05/2025 às 20:30
+
+            function atualizarContador() {
+                const agora = new Date();
+                let diferenca = agora - inicio;
+
+                const segundos = Math.floor(diferenca / 1000) % 60;
+                const minutos = Math.floor(diferenca / (1000 * 60)) % 60;
+                const horas = Math.floor(diferenca / (1000 * 60 * 60)) % 24;
+                const dias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
+
+                document.getElementById("tempo").innerHTML =
+                    `${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos 💕`;
+            }
+
+            atualizarContador();
+            setInterval(atualizarContador, 1000);
+            </script>
+
+            <div><p>
+                Desde que você falou sim, tivemos momentos incríveis juntos, que com certeza ficarão marcados na minha vida (e se Deus quiser, na nossa futura vida juntos kk), e eu separei alguns momentos que nos passamos juntos e ficarão registrados aqui, não são todos, mas são alguns dos que temos registro. (temos que tirar mais foto em)
+            </p></div>
+
+            <div class="coluna-50 gifs">
+                <img src="fofo.gif" width="100">
+                <img src="fofo2.gif" width="100">
+            </div>
+            
+            <br><br><br><br><br><br><br>
+
+            <div class="linha-coracao">
+                <hr class="linha">
+            </div>
+
+            <h3>Alguns dos nossos momentos juntos:</h3>
+            <a class="botao" href="imagem.html?img=ana-e-eu.jpeg" target="meu-iframe">Indo para a igreja</a>
+            
+            <a class="botao" href="imagem.html?img=natal.jpeg" target="meu-iframe">Natal juntos</a>
+            
+            <a class="botao" href="imagem.html?img=shopping.jpeg" target="meu-iframe">Filme do zootopia</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <br>
+            <a class="botao" href="imagem.html?img=kadosh.jpg" target="meu-iframe">Kadosh</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="botao" href="imagem.html?img=effeta.jpeg" target="meu-iframe">Effeta</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="botao" href="imagem.html?img=no-hamburguer.jpg" target="meu-iframe">No hamburguer</a>
+            <br><br>
+            <a class="botao" href="imagem.html?img=nossa-crisma.jpeg" target="meu-iframe">Crisma</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="botao" href="imagem.html?img=novena-de-santa-rita.jpg" target="meu-iframe">Santa Rita</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="botao" href="imagem.html?img=shopping.jpeg" target="meu-iframe">No shopping</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <br><br>
+            <a class="botao" href="imagem.html?img=seu-aniversario.jpg" target="meu-iframe">Seu aniversário</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="botao" href="imagem.html?img=noite-pizza.jpg" target="meu-iframe">Noite da pizza</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="botao" href="imagem.html?img=foto-feliz.jpg" target="meu-iframe">Na sua casa</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <br>
+            <a class="botao" href="imagem.html?img=filme-em-casa.jpg" target="meu-iframe">Filme em casa</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="botao" href="imagem.html?img=anunciai.jpeg" target="meu-iframe">Anunciai 2026</a>
+            <br><br>
+            <a class="botao" href="imagem.html?img=corrida-pilar.jpg" target="meu-iframe">Corrida pilar</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="botao" href="imagem.html?img=casamento.jpg" target="meu-iframe">Casamento que a gente foi</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <br><br>
+            <a class="botao" href="imagem.html?img=apresentacao.jpg" target="meu-iframe">Sua apresentação</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="botao" href="imagem.html?img=ano-novo.jpg" target="meu-iframe">Ano novo</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="botao" href="imagem.html?img=Pism.jpg" target="meu-iframe">Indo pro pism</a>
+
+            <br><br>
+
+            <iframe width="100%" height="500" src="" name="meu-iframe" title="iframe de amor"></iframe>
+
+            <div class="linha-coracao">
+                <hr class="linha">
+            </div>
+
+            <p>
+                Eu quero que você saiba que pode contar comigo para qualquer coisa, se estiver triste pode me falar, se estiver feliz pode me falar, se estiver confusa, querendo um conselho ou qualquer coisa que precisar, conte comigo, porque além de ser seu namorado, eu qeuro ser seu melhor amigo, pq vc é minha melhor amiga também, tudo o que acontece no meu dia a dia eu penso como seria melhor se vc estivesse do meu lado.
+            </p>
+            <p>Fico até meio mal por vc gostar de mim desde que éramos pequenos e eu nao corresponder, as vezes porque eu não sabia das coisas direito ou por vergonha, mas te conhecendo melhor eu me apaixonei completamente por você, enquanto eu estava te conhecendo, toda noite eu rezava para Deus, falando que se for para você ser minha namorada, que você seja, mas seja feita a vontade de Deus em minha vida, eu não tenho dúvidas que desde que nascemos ele pensou em nós dois juntos; eu não guardaria aquela cartinha que você fez para mim sem motivo nenhum. 
+            </p>
+            <p>
+                Na época eu não sabia o porque, mas que eu deveria e acabei guardando, e toda vez que eu olhava pra cartinha guardada, eu lembrava de vc, e me perguntava: "onde será que ela está agora?". E hoje em dia eu posso saber que o lugar em que vc está é semrpe do meu lado, e no meu coração. eu rezo muito e peço muito a Deus, para que a gente siga firme juntos até o futuro, não deve ser tudo em vão, você foi a primeira menina que eu dei flores, que eu me apaixonei de verdade, que me faz acordar e dormir pensando em você e conversar como amigos e como namorado, a primeira que eu beijei kk, e espero que você seja a única. Eu te amo muuuuuuuito, desse tamanho aqui: 🫷🫸 kkk.
+            </p>
+            <br>
+            <div class="linha-coracao">
+                <hr class="linha">
+            </div>
+
+
+            <h3>Toda vez que eu te vejo ou penso em você, meu coração fica desse jeito:</h3>
+            <p>Palpitando e me dizendo: eu amo essa garota, eu amo essa garota, ela é incível, linda, engraçada, maravilhosa, gentil, fofa, esperta, linda, inteligente, católica kk, gente boa, linda (já falei linda quantas vezes?), me entende do jeito que eu sou, você é incrível kk.</p>
+
+            <!--Treco do coração agora-->
+
+            <div class="coracao" id="coracao"></div>
+
+            <script>
+                const container = document.getElementById("coracao");
+
+                const total = 120; // quantidade de "love"
+
+                for (let i = 0; i < total; i++) {
+                    const span = document.createElement("span");
+                    span.className = "love";
+                    span.innerText = "eu te amo";
+
+                    // Fórmula de coração (matemática mesmo 💀❤️)
+                    const t = Math.PI * 2 * (i / total);
+                    const x = 16 * Math.pow(Math.sin(t), 3);
+                    const y =
+                        13 * Math.cos(t) -
+                        5 * Math.cos(2 * t) -
+                        2 * Math.cos(3 * t) -
+                        Math.cos(4 * t);
+
+                    span.style.left = 150 + x * 8 + "px";
+                    span.style.top = 150 - y * 8 + "px";
+
+                    span.style.animationDelay = (i * 0.02) + "s";
+
+                    container.appendChild(span);
+                }
+            </script>
+
+            <div class="linha-coracao">
+                <hr class="linha">
+            </div>
+
+            <h3>Agora vamos para a parte divertida kkk</h3>
+            <p>
+                Esse site é um dos seus presentes de aniversário de namoro lógico, mas também tem 3 presentes. Cada presente será desbloqueado em sua data marcada, que será a data de um dos nossos aniversários de namoro. Exemplo: presente 1: disponível dia 22/03; presente 2: disponível em 22/04. E o presente 3, é o seu presente de 1 ano de namoro, que voce vai receber no dia, entendeu? (os presentes nao vao ser nada tão grandiosos, podem ser coisas simples como uma cartinha ou flores, vc vai descobrir, mas vou tentar dar meu máximo ta bom?). 😁
+            </p>
+            <p>
+                Aqui estão:
+            </p>
+
+            <div class="presentes">
+
+                <div class="presente" data-data="2025-03-22">
+                    <img src="presente.png">
+                    <p><strong>Presente 1</strong><br>Disponível 22/03</p>
+                </div>
+
+                <div class="presente" data-data="2025-04-22">
+                    <img src="presente.png">
+                    <p><strong>Presente 2</strong><br>Disponível 22/04</p>
+                </div>
+
+                <div class="presente" data-data="2025-05-22">
+                    <img src="presente.png">
+                    <p><strong>Presente 3</strong><br>Disponível 22/05</p>
+                </div>
+            </div>
+
+            <script>
+                const hoje = new Date();
+                hoje.setHours(0, 0, 0, 0); // zera a hora de hoje
+
+                document.querySelectorAll(".presente").forEach(presente => {
+                    const dataLiberacao = new Date(presente.dataset.data);
+                    dataLiberacao.setHours(0, 0, 0, 0); // zera a hora da data
+
+                    if (hoje >= dataLiberacao) {
+                        presente.classList.add("liberado");
+
+                        presente.addEventListener("click", () => {
+                            alert("disponível em breve");
+                        });
+                    }
+                });
+            </script>
+
+            <br>
+            <h2>E tudo isso porque eu te amo ❤️</h2>
+            <p>Ass: João Paulo</p>
+
+            <div class="linha-coracao">
+                <hr class="linha">
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>
